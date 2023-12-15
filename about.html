@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>emilio pérez</title>
+  <style>
+    @font-face {
+      font-family: 'MariaPro';
+      src: url('MariaPro.woff2') format('woff2');
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'MariaPro';
+      overflow: hidden;
+    }
+
+    .button-container {
+      position: fixed;
+      display: flex;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      padding: 0 20px;
+      z-index: 1000;
+      mix-blend-mode: difference;
+    }
+
+    .button-container input {
+      font-family: 'MariaPro';
+      background-color: transparent;
+      color: #ffffff;
+      padding: 10px 20px;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      opacity: 60%;
+    }
+
+    .button-container input:hover {
+      text-decoration: underline;
+      color: rgb(255, 255, 255);
+      opacity: 100%;
+    }
+
+    .button-container input.active {
+      text-decoration: underline;
+      opacity: 100%;
+    }
+
+    #oficina {
+      background-color: transparent;
+      text-decoration: underline;
+      color: #ffffff;
+      font-size: 20px;
+      border: none;
+
+    }
+
+    .mensaje-container-wrapper {
+      position: fixed;
+      top: 50%;
+      left: 25%;
+      transform: translate(-0%, -50%);
+      z-index: 1000;
+      mix-blend-mode: difference;
+    }
+
+    #description-slider {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      z-index: 1000;
+      padding: 30px;
+      mix-blend-mode: difference;
+    }
+
+    .description {
+      color: #ffffff;
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .mensaje-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-height: 100vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    .contenido-oculto {
+      display: none;
+    }
+
+    #infoContacto {
+      text-decoration: underline;
+      font-size: 20px;
+    }
+
+    a {
+      color: rgb(255, 255, 255);
+    }
+
+    .espacio {
+      text-decoration: underline;
+      margin-left: 20px;
+    }
+
+    #slider-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    #slider {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .slide {
+      min-width: 100%;
+      object-fit: cover;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      margin: 0;
+      transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    }
+
+    @media only screen and (max-width: 1000px) {
+      #infoContacto {
+        text-decoration: underline;
+        margin-left: 40px;
+      }
+
+      #oficina {
+        border: none;
+        margin-left: 40px;
+      }
+
+    }
+
+    @media only screen and (max-width: 1020px) {
+      #slider {
+        transform: rotate(-90deg);
+      }
+
+      .slide {
+        min-height: 100vw;
+        min-width: 150%;
+        object-fit: contain;
+        /* Cambiado a "contain" para mantener la relación de aspecto */
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        /* Cambiado a "contain" para mantener la relación de aspecto */
+        margin: 0;
+      }
+
+      .button-container input {
+        background-color: transparent;
+        color: #ffffff;
+        padding: 0px 30px;
+        font-size: 18px;
+        border: none;
+        text-decoration: none;
+      }
+
+      #oficina {
+        background-color: transparent;
+        text-decoration: underline;
+        color: #ffffff;
+        padding: 0;
+        font-size: 18px;
+        border: none;
+        margin: 0;
+      }
+
+      .espacio {
+        text-decoration: underline;
+        margin-left: 15px;
+      }
+
+      #description-slider {
+        position: fixed;
+        top: 95%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        padding: 0;
+        mix-blend-mode: difference;
+        text-align: center;
+      }
+
+      .mensaje-container-wrapper {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translate(0%, -50%);
+        z-index: 1000;
+        mix-blend-mode: difference;
+        left: auto;
+      }
+
+      .description {
+        font-size: 18px;
+      }
+
+      .button-container {
+        padding: 0 10px;
+      }
+
+      .button-container input {
+        padding: 5px;
+      }
+
+      #infoContacto {
+        font-size: 18px;
+        text-decoration: underline;
+      }
+
+      #oficina {
+        font-size: 18px;
+      }
+    }
+
+    @media only screen and (max-width: 600px) and (min-height: 1000px) {
+
+      .slide {
+        min-height: 100vw;
+        min-width: 200%;
+        object-fit: contain;
+        /* Cambiado a "contain" para mantener la relación de aspecto */
+      }
+
+      .button-container {
+        padding: 0 10px;
+      }
+
+      .button-container input {
+        padding: 5px;
+      }
+
+      .espacio {
+        text-decoration: underline;
+        margin-left: 7px;
+      }
+
+      #infoContacto {
+        top: 50%;
+        right: 0;
+      }
+
+      .button-container {
+        font-size: 15px;
+      }
+
+      .button-container input {
+        font-size: 15px;
+      }
+
+      #oficina {
+        font-size: 15px;
+      }
+
+      #infoContacto {
+        font-size: 15px;
+      }
+
+      .description {
+        font-size: 15px;
+      }
+    }
+
+    @media only screen and (min-height: 700px) {
+      .slide {
+        min-height: 100vw;
+        min-width: 250%;
+        object-fit: contain;
+        /* Cambiado a "contain" para mantener la relación de aspecto */
+      }
+    }
+
+    @media only screen and (min-height: 1000px) {
+      .slide {
+        min-height: 100vw;
+        min-width: 150%;
+        object-fit: contain;
+        /* Cambiado a "contain" para mantener la relación de aspecto */
+      }
+    }
+
+    @media only screen and (max-width: 300px) {
+      .slide {
+        min-height: 100vw;
+        min-width: 250%;
+        object-fit: contain;
+        /* Cambiado a "contain" para mantener la relación de aspecto */
+      }
+    }
+
+    @media only screen and (min-height: 1200px) {
+      .slide {
+        min-height: 100vw;
+        min-width: 250%;
+        object-fit: contain;
+        /* Cambiado a "contain" para mantener la relación de aspecto */
+      }
+
+      .button-container {
+        padding: 0 10px;
+      }
+
+      .button-container input {
+        padding: 5px;
+      }
+
+      .espacio {
+        text-decoration: underline;
+        margin-left: 7px;
+      }
+
+      #infoContacto {
+        top: 50%;
+        right: 0;
+      }
+
+      .button-container {
+        font-size: 13px;
+      }
+
+      .button-container input {
+        font-size: 13px;
+      }
+
+      #oficina {
+        font-size: 13px;
+      }
+
+      #infoContacto {
+        font-size: 13px;
+      }
+
+      .description {
+        font-size: 13px;
+      }
+    }
+
+
+    @media only screen and (max-width: 350px) {
+
+
+      .button-container {
+        padding: 0 10px;
+      }
+
+      .button-container input {
+        padding: 4px;
+      }
+
+      .espacio {
+        text-decoration: underline;
+        margin-left: 50px;
+      }
+
+      #infoContacto {
+        top: 50%;
+        right: 0;
+      }
+
+      .button-container {
+        font-size: 11px;
+      }
+
+      .button-container input {
+        font-size: 11px;
+      }
+
+
+      #oficina {
+        font-size: 11px;
+      }
+
+      #infoContacto {
+        font-size: 11px;
+      }
+
+      .description {
+        font-size: 11px;
+      }
+
+      .espacio {
+        text-decoration: underline;
+        margin-left: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body onload="inicializarSlider()">
+  <div class="button-container">
+    <input type="button" onclick="mostrarOficina()" class="active" value="oficina">
+    <input type="button" onclick="mostrarContacto()" class="active" value="contacto">
+  </div>
+  <div class="mensaje-container-wrapper">
+    <div class="mensaje-container">
+      <div id="oficina" class="contenido-oculto" onclick="mostrarOficina()">
+        <p>emilio pérez</p>
+        <!-- Contenido de la oficina -->
+      </div>
+      <div id="infoContacto" class="contenido-oculto">
+        <p>
+          <a href="mailto:emilio@e-p.cc">emilio@e-p.cc</a>
+          <a class="espacio" href="tel:+52 55 3133 7518">+52 55 3133 7518</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="description-slider">
+    <p class="description">coming Soon</p>
+    <p class="description">Descripción de la imagen 2</p>
+    <p class="description">Descripción de la imagen 3</p>
+  </div>
+
+  <div id="slider-container">
+    <div id="slider">
+      <img class="slide" onclick="changeSlide(1)" src="prueba.png" alt="Imagen 1" onmouseenter="handleMouseEnter(this)"
+        onmouseleave="handleMouseLeave(this)">
+      <img class="slide" onclick="changeSlide(1)" src="ph15_evw0mp-1.jpg" alt="Imagen 2"
+        onmouseenter="handleMouseEnter(this)" onmouseleave="handleMouseLeave(this)">
+      <img class="slide" onclick="changeSlide(1)" src="Ph4_cmmifk.png" alt="Imagen 3"
+        onmouseenter="handleMouseEnter(this)" onmouseleave="handleMouseLeave(this)">
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      inicializarSlider();
+    });
+
+    function inicializarSlider() {
+      mostrarOficina();
+      showSlide(0);
+    }
+
+    function ocultarTodo() {
+      var contenidos = document.querySelectorAll('.contenido-oculto');
+      contenidos.forEach(contenido => {
+        contenido.style.display = 'none';
+      });
+
+      var buttons = document.querySelectorAll('.button-container input');
+      buttons.forEach(button => {
+        button.classList.remove('active');
+      });
+    }
+
+    function mostrarOficina() {
+      ocultarTodo();
+      var oficina = document.getElementById('oficina');
+      oficina.style.display = 'block';
+
+      var button = document.querySelector('.button-container input[value="oficina"]');
+      button.classList.add('active');
+    }
+
+    function mostrarContacto() {
+      ocultarTodo();
+      var infoContacto = document.getElementById('infoContacto');
+      infoContacto.style.display = 'block';
+
+      var button = document.querySelector('.button-container input[value="contacto"]');
+      button.classList.add('active');
+
+      // Mostrar enlaces cuando se muestra el contenido
+      var enlaces = infoContacto.querySelectorAll('a');
+      enlaces.forEach(enlace => {
+        enlace.style.display = 'inline';
+      });
+    }
+
+    let slideIndex = 0;
+    let isAutoSlideEnabled = true;
+    let touchStartX = 0;
+    let slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index >= totalSlides) {
+        slideIndex = 0;
+      }
+
+      if (index < 0) {
+        slideIndex = totalSlides - 1;
+      }
+
+      slides.forEach((slide, i) => {
+        slide.style.display = i === slideIndex ? "block" : "none";
+      });
+
+      updateImageDescription(slideIndex);
+    }
+
+    function changeSlide(n) {
+      showSlide(slideIndex += n);
+      if (isAutoSlideEnabled) {
+        restartAutoSlide();
+      }
+    }
+    function autoSlide() {
+      // Cambia el slide de manera aleatoria
+      const randomIndex = Math.floor(Math.random() * totalSlides);
+      showSlide(randomIndex);
+    }
+
+    function autoSlide() {
+      changeSlide(1);
+    }
+
+    let interval = setInterval(autoSlide, 5000);
+
+    function restartAutoSlide() {
+      clearInterval(interval);
+      interval = setInterval(autoSlide, 5000);
+    }
+
+    function toggleAutoSlide() {
+      isAutoSlideEnabled = !isAutoSlideEnabled;
+      if (isAutoSlideEnabled) {
+        restartAutoSlide();
+      } else {
+        clearInterval(interval);
+      }
+    }
+
+    function handleMouseEnter(element) {
+      isAutoSlideEnabled = false;
+      clearInterval(interval);
+      element.style.cursor = "pointer";
+    }
+
+    function handleMouseLeave(element) {
+      isAutoSlideEnabled = true;
+      restartAutoSlide();
+      element.style.cursor = "default";
+    }
+
+    function updateImageDescription(index) {
+      const descriptions = document.querySelectorAll('.description');
+
+      // No hay ninguna condición para ocultar descripciones ahora
+      descriptions.forEach(description => {
+        description.style.display = "none";
+      });
+
+      descriptions[index].style.display = "block";
+    }
+  </script>
+</body>
+
+</html>
